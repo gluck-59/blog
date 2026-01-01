@@ -1,0 +1,45 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: php-fpm/Dockerfile-php
+    volumes:
+      - ./src:/var/www
+      - ./php-fpm/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
+      - ./logs:/var/log
+      - ./vendor:/var/www/vendor
+
+    expose:
+      - "9000"
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile-nginx
+    volumes:
+      - ./src:/var/www
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./logs/nginx:/var/log/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - php
+
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppassword
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./logs/mysql:/var/log/mysql/mysqld.log
+    ports:
+      - "3306:3306"
+
+volumes:
+  dbdata:
