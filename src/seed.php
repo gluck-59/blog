@@ -74,10 +74,10 @@ for ($i = 1; $i <= 20; $i++) {
     $content = file_get_contents("https://fish-text.ru/get?type=paragraph&number=10&format=html");
 
     $insertPost->execute([
-        'title'             => 'Заголовок в две строки: '.sanitize($title),
+        'title'             => sanitize($title),
         'slug'              => 'article-' . $i,
         'image'             => sanitize(basename($imagePath)),
-        'short_description' => 'Краткое описание статьи №' . $i . ' в одну строку',
+        'short_description' => 'Краткое описание статьи №' . $i,
         'content'           => sanitize($content),
         'views'             => rand(0, 100),
         'published_at'      => date('Y-m-d H:i:s', strtotime("-{$i} days")),
