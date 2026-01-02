@@ -26,12 +26,6 @@ Thumbs.db
 logs/
 storage/logs/
 
-# Environment files
-.env
-.env.local
-.env.*.local
-.envrc
-
 # Docker
 .docker/
 docker-compose.override.yml

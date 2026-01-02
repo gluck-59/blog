@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../config.php';
-require_once __DIR__ . '/plugins/modifier.date_format.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../src/config.php';
+//require_once __DIR__ . '/plugins/modifier.date_format.php';
 
 /**
  *  Мультибайтовое усечение строки
@@ -58,16 +58,17 @@ function get_smarty(): Smarty\Smarty
         $smarty->setTemplateDir(SMARTY_TEMPLATES_DIR);
         $smarty->setCompileDir(SMARTY_COMPILE_DIR);
         $smarty->setCacheDir(SMARTY_CACHE_DIR);
-
         $smarty->setCaching(true);
         if (IS_LOCAL) {
+            $smarty->setCaching(false);
             $smarty->clearAllCache();
             $smarty->clearCompiledTemplate();
         }
 
-        $smarty->registerPlugin('modifier', 'mb_truncate', 'smarty_modifier_mb_truncate');
-        $smarty->registerPlugin('modifier', 'rus_date', 'smarty_modifier_rus_date');
+        // Register plugins можно сделать так
         $smarty->registerPlugin('modifier', 'print_r', 'smarty_modifier_print_r');
+        // а можно схитрить
+        require_once __DIR__ . '/plugins/modifier.date_format.php';
     }
 
     return $smarty;

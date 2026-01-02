@@ -19,6 +19,12 @@ function get_pdo(): PDO
     return $pdo;
 }
 
+/**
+ * санитайзинг кофигурится как принято на вашем проекте, здесь самый минимум
+ *
+ * @param $text
+ * @return string
+ */
 function sanitize($text) {
     return strip_tags(trim($text));
 }

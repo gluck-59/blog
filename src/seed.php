@@ -8,9 +8,6 @@ declare(strict_types=1);
 require_once __DIR__ . '/core/db.php';
 $pdo = get_pdo();
 
-// т.к. админки в проекте нет, захардкодим путь для img src здесь
-const IMG_DIR = __DIR__ . '/assets/images/posts/';
-
 function download_random_image(string $baseUrl, string $targetDir, int $index): string
 {
     // мы конечно умеем хранить блобы в базе, но не будем этого делать
@@ -71,7 +68,7 @@ $insertPostCategory = $pdo->prepare('INSERT INTO post_category (post_id, categor
 for ($i = 1; $i <= 20; $i++) {
     $title = file_get_contents("https://fish-text.ru/get?type=title&format=html");
     $imagePath = download_random_image('https://picsum.photos/400/300', __DIR__.DIRECTORY_SEPARATOR.IMG_DIR, $i);
-    $content = file_get_contents("https://fish-text.ru/get?type=paragraph&number=10&format=html");
+    $content = file_get_contents("https://fish-text.ru/get?type=paragraph&number=5&format=html");
 
     $insertPost->execute([
         'title'             => sanitize($title),

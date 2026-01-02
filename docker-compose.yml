@@ -4,10 +4,9 @@ services:
       context: .
       dockerfile: php-fpm/Dockerfile-php
     volumes:
-      - ./src:/var/www
+      - .:/var/www
       - ./php-fpm/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
       - ./logs:/var/log
-      - ./vendor:/var/www/vendor
 
     expose:
       - "9000"
@@ -17,7 +16,7 @@ services:
       context: .
       dockerfile: ./nginx/Dockerfile-nginx
     volumes:
-      - ./src:/var/www
+      - .:/var/www
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./logs/nginx:/var/log/nginx
