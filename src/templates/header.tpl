@@ -9,7 +9,7 @@
 
     <title>{$title|default:'Блог'}</title>
 </head>
-<body class="bg-light">
+<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
             <a class="navbar-brand" href="/">
